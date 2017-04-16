@@ -1,3 +1,28 @@
+import collections
+import math
+from Dijkstra import *
+
+class Graph:
+    def __init__(self):
+        self.vertices = set()
+        self.edges = collections.defaultdict(list)
+        self.weights = {}
+
+    def add_vertex(self, value):
+         self.vertices.add(value)
+
+    def add_edge(self, from_vertex, to_vertex, weight):
+        if from_vertex == to_vertex: pass
+        self.edges[from_vertex].append(to_vertex)
+        self.weights[(from_vertex, to_vertex)] = weight
+
+    def __str__(self):
+        string = "Vertices: " + str(self.vertices) + "\n"
+        string += "Edges: " + str(self.edges) + "\n"
+        string += "Weights: " + str(self.weights)
+        return string
+
+
 graph = {
         'A' : {'B' : 1, 'C': 1},
         'B' : {'C' : 1, 'D' : 1},
@@ -50,3 +75,23 @@ Example showing a result where a path couldn't be found
 """
 
 print "Result: " + str(find_path(graph, 'A', 'F'))
+
+G = Graph()
+G.add_vertex('a')
+G.add_vertex('b')
+G.add_vertex('c')
+G.add_vertex('d')
+G.add_vertex('e')
+ 
+G.add_edge('a', 'b', 2)
+G.add_edge('a', 'c', 8)
+G.add_edge('a', 'd', 5)
+G.add_edge('b', 'c', 1)
+G.add_edge('c', 'e', 3)
+G.add_edge('d', 'e', 4)
+
+print(G) 
+
+print(dijkstra(G, 'a'))
+print(shortest_path(G, 'a', 'e'))
+
